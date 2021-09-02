@@ -2,7 +2,8 @@
   <v-container>
     <v-row>
       <v-col col="12">
-        <v-card class="d-inline-block mx-auto pa-md-2 rounded-pill">
+        <v-card class="d-inline-block mx-auto pa-md-4 rounded-xl kak">
+          <div class="region d-inline-block ml-md-n8">EUW</div>
           <v-container>
             <v-row align="center">
               <v-img
@@ -10,7 +11,6 @@
                 width="100"
                 src="https://placekitten.com/200/200"
                 class="rounded-circle mr-md-4"
-                
               ></v-img>
               <v-col cols="auto" class="text-center pl-0">
                 <v-row class="flex-column ma-0 fill-height" justify="center">
@@ -27,4 +27,16 @@
 </template>
 
 <style scoped>
+
+.region
+{
+  position:absolute;
+  font-size: 1.5vh;
+}
+
+.kak
+{
+  text-align:right;
+  
+}
 </style>

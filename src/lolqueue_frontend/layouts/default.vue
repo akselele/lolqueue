@@ -115,3 +115,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+#app
+{
+  font-family: 'Asap', sans-serif;
+}
+</style>
