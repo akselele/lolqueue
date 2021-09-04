@@ -11,3 +11,5 @@ having a personal opgg with your smurfs - kind of like lolpros
 Extras: having a note where it says "live" if player is live
 	Putting a VOD/Youtube link wherever possible
 	?
+
+Font used in frontend: https://fonts.googleapis.com/css2?family=Asap&display=swap
