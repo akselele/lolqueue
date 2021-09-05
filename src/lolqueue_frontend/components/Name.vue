@@ -27,11 +27,17 @@
 </template>
 
 <script>
+import { getMatchHistory } from '~/services/historyService';
+
 export default {
   async created() {
-      const URL = `localhost:5500/api`;
-      const response = await this.$axios.$get(`${URL}/history`);
-      console.log(response);
+    const data = await this.getInfo();
+    console.log(data);
+  },
+  methods: {
+    getInfo() {
+      return getMatchHistory(this);
+    },
   },
 }
 </script>
