@@ -6,6 +6,6 @@ import historyController from './historyController';
 const router = Router();
 const historyApi = makeInvoker(historyController);
 
-router.get('/', historyApi('getPuuid'));
+router.get('/', historyApi('getMatchDetails'));
 
 export default router;
