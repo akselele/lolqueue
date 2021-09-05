@@ -26,12 +26,23 @@
   </v-container>
 </template>
 
+<script>
+export default {
+  async created() {
+      const URL = `localhost:5500/api`;
+      const response = await this.$axios.$get(`${URL}/history`);
+      console.log(response);
+  },
+}
+</script>
+
+
 <style scoped>
 
 .region
 {
   position:absolute;
-  font-size: 1.5vh;
+  font-size: 0.75em;
 }
 
 .kak
