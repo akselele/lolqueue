@@ -2,11 +2,12 @@ require('dotenv').config();
 const axios = require('axios');
 const rateLimit = require('axios-rate-limit');
 
-const axiosLimit = rateLimit(axios.create(), { maxRequests: 250, perMilliseconds: 10000, maxRPS: 25 });
-export default class historyService {
+const axiosLimit = rateLimit(axios.create(), { maxRequests: 230, perMilliseconds: 10000, maxRPS: 23 });
+export default class historyProvider {
   // key = process.env.RIOT_KEY
   // user = process.env.IGN
 
+  // Next 2 methods dont get used, just there to check for errors
   async getPuuid() {
     const config = { 'X-Riot-Token': process.env.RIOT_KEY };
     const { data } = await axiosLimit.get(`https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${process.env.IGN}`, { headers: config });

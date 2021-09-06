@@ -12,6 +12,7 @@
                 src="https://placekitten.com/200/200"
                 class="rounded-circle mr-md-4"
               ></v-img>
+              {{ matches }}
               <v-col cols="auto" class="text-center pl-0">
                 <v-row class="flex-column ma-0 fill-height" justify="center">
                   <v-col class="px-0"> Yuumi LFT </v-col>
@@ -25,35 +26,35 @@
     </v-row>
   </v-container>
 </template>
-
+  
 <script>
-import { getMatchHistory } from '~/services/historyService';
 
 export default {
-  async created() {
-    const data = await this.getInfo();
-    console.log(data);
-  },
-  methods: {
-    getInfo() {
-      return getMatchHistory(this);
+  props: {
+    matches: {
+      type: Array,
+      required: true,
     },
   },
+  created() {
+    console.log(this.matches);
+  },
+  // methods: {
+  //   getInfo() {
+  //     return getMatchHistory(this)
+  //   },
+  // },
 }
 </script>
 
 
 <style scoped>
-
-.region
-{
-  position:absolute;
+.region {
+  position: absolute;
   font-size: 0.75em;
 }
 
-.kak
-{
-  text-align:right;
-  
+.kak {
+  text-align: right;
 }
 </style>
