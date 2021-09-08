@@ -7,5 +7,6 @@ const router = Router();
 const historyApi = makeInvoker(historyController);
 
 router.get('/', historyApi('getMatchDetails'));
+router.get('/rank', historyApi('getRank'));
 
 export default router;

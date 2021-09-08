@@ -1,6 +1,6 @@
 <template>
   <v-app dark>
-    <v-navigation-drawer
+    <!-- <v-navigation-drawer
       v-model="drawer"
       :mini-variant="miniVariant"
       :clipped="clipped"
@@ -56,13 +56,13 @@
       >
         <v-icon>mdi-menu</v-icon>
       </v-btn>
-    </v-app-bar>
+    </v-app-bar> -->
     <v-main>
       <v-container>
         <Nuxt />
       </v-container>
     </v-main>
-    <v-navigation-drawer
+    <!-- <v-navigation-drawer
       v-model="rightDrawer"
       :right="right"
       temporary
@@ -84,37 +84,37 @@
       app
     >
       <span>&copy; {{ new Date().getFullYear() }}</span>
-    </v-footer>
+    </v-footer> -->
   </v-app>
 </template>
 
-<script>
-export default {
-  data () {
-    return {
-      clipped: false,
-      drawer: false,
-      fixed: false,
-      items: [
-        {
-          icon: 'mdi-apps',
-          title: 'Welcome',
-          to: '/'
-        },
-        {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire'
-        }
-      ],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: 'Vuetify.js'
-    }
-  }
-}
-</script>
+// <script>
+// export default {
+//   data () {
+//     return {
+//       clipped: false,
+//       drawer: false,
+//       fixed: false,
+//       items: [
+//         {
+//           icon: 'mdi-apps',
+//           title: 'Welcome',
+//           to: '/'
+//         },
+//         {
+//           icon: 'mdi-chart-bubble',
+//           title: 'Inspire',
+//           to: '/inspire'
+//         }
+//       ],
+//       miniVariant: false,
+//       right: true,
+//       rightDrawer: false,
+//       title: 'Vuetify.js'
+//     }
+//   }
+// }
+// </script>
 
 <style scoped>
 #app

@@ -28,7 +28,7 @@ export default class historyController {
     try {
       const puuid = await this.historyProvider.getPuuid();
 
-      const matchIds = await this.historyProvider.getRecentMatches(puuid);
+      const matchIds = await this.historyProvider.getRecentMatches(puuid.puuid);
 
       const matches = [];
       for (let i = 0; i < matchIds.length; i += 1) {
@@ -51,11 +51,34 @@ export default class historyController {
       default:
         return 'matchdetails';
       case url.indexOf('https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/') === 0:
-        return 'https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/';
+        return 'https://euw1.api.getriotgames.com/lol/summoner/v4/summoners/by-name/';
       case url.indexOf('https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/') === 0:
         return 'https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/';
       case url.indexOf('https://europe.api.riotgames.com/lol/match/v5/matches/') === 0:
         return 'https://europe.api.riotgames.com/lol/match/v5/matches/';
+    }
+  }
+
+  /* eslint-disable-next-line */
+  async getRank(req, res) {
+    try {
+      const data = await this.historyProvider.getRank(req.query.ign);
+      const filteredData = data.data.filter(el => el.queueType === 'RANKED_SOLO_5x5');
+      res.status(200).json({ filteredData });
+    } catch (err) {
+      console.log(err);
+      this.waitForTimeout(err);
+      this.getRank(req, res);
+    }
+  }
+
+  waitForTimeout(data) {
+    if (data.response.status === 429 && data.response.headers['x-rate-limit-type'] === 'service') {
+      const timeout = Number(data.response.headers['retry-after']);
+      console.log(`Waiting for ${timeout}`);
+      setTimeout(() => {
+        console.log(`Waited for ${timeout} seconds due to service rate limit.`);
+      }, timeout);
     }
   }
 }

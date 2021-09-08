@@ -2,48 +2,53 @@
   <v-container>
     <v-row>
       <v-col col="12">
-        <v-card class="d-inline-block mx-auto pa-md-4 rounded-xl kak">
-          <div class="region d-inline-block ml-md-n8">EUW</div>
-          <v-container>
-            <v-row align="center">
-              <v-img
-                height="100"
-                width="100"
-                src="https://placekitten.com/200/200"
-                class="rounded-circle mr-md-4"
-              ></v-img>
-              {{ matches }}
-              <v-col cols="auto" class="text-center pl-0">
-                <v-row class="flex-column ma-0 fill-height" justify="center">
-                  <v-col class="px-0"> Yuumi LFT </v-col>
-                  <v-col class="px-0"> Challenger --- 2000 LP</v-col>
-                </v-row>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-card>
+        <NuxtLink to="/history">
+          <v-card
+            class="d-inline-block mx-auto pa-md-4 rounded-xl textright shadow-2xl"
+          >
+            <div class="region d-inline-block ml-md-n8">EUW</div>
+            <v-container>
+              <v-row align="center">
+                <v-img
+                  height="100"
+                  width="100"
+                  src="https://placekitten.com/200/200"
+                  class="rounded-circle mr-md-4"
+                ></v-img>
+                <v-col cols="auto" class="text-center pl-0">
+                  <v-row class="flex-column ma-0 fill-height" justify="center">
+                    <v-col class="px-0">{{ ign }}</v-col>
+                    <v-col class="px-0">{{ rank }} {{ elo }} LP</v-col>
+                  </v-row>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-card>
+        </NuxtLink>
       </v-col>
     </v-row>
   </v-container>
 </template>
   
 <script>
-
 export default {
   props: {
-    matches: {
-      type: Array,
+    ign: {
+      type: String,
       required: true,
+      default: '',
     },
+    rank: {
+      type: String,
+      required: true,
+      default: '',
+    },
+    elo: {
+      type: String,
+      required: true,
+      default: '0',
+    }
   },
-  created() {
-    console.log(this.matches);
-  },
-  // methods: {
-  //   getInfo() {
-  //     return getMatchHistory(this)
-  //   },
-  // },
 }
 </script>
 
@@ -54,7 +59,7 @@ export default {
   font-size: 0.75em;
 }
 
-.kak {
+.textright {
   text-align: right;
 }
 </style>

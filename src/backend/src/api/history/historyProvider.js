@@ -7,22 +7,28 @@ export default class historyProvider {
   // key = process.env.RIOT_KEY
   // user = process.env.IGN
 
-  // Next 2 methods dont get used, just there to check for errors
   async getPuuid() {
     const config = { 'X-Riot-Token': process.env.RIOT_KEY };
-    const { data } = await axiosLimit.get(`https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${process.env.IGN}`, { headers: config });
-    return data.puuid;
+    const response = await axiosLimit.get(`https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${process.env.IGN}`, { headers: config });
+    return response;
   }
 
   async getRecentMatches(puuid) {
     const config = { 'X-Riot-Token': process.env.RIOT_KEY };
-    const { data } = await axiosLimit.get(`https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=20`, { headers: config });
-    return data;
+    const response = await axiosLimit.get(`https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=20`, { headers: config });
+    return response;
   }
 
   async getMatchDetails(matchId) {
     const config = { 'X-Riot-Token': process.env.RIOT_KEY };
-    const { data } = await axiosLimit.get(`https://europe.api.riotgames.com/lol/match/v5/matches/${matchId}`, { headers: config });
-    return data;
+    const response = await axiosLimit.get(`https://europe.api.riotgames.com/lol/match/v5/matches/${matchId}`, { headers: config });
+    return response;
+  }
+
+  async getRank(ign) {
+    const config = { 'X-Riot-Token': process.env.RIOT_KEY };
+    const info = await axiosLimit.get(`https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${encodeURIComponent(ign)}`, { headers: config });
+    const response = await axiosLimit.get(`https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/${info.data.id}`, { headers: config });
+    return response;
   }
 }
