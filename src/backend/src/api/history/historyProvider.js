@@ -3,7 +3,7 @@ const axios = require('axios');
 const axiosRetry = require('axios-retry');
 const rateLimit = require('axios-rate-limit');
 
-const axiosLimit = rateLimit(axios.create({ headers: { 'X-Riot-Token': process.env.RIOT_KEY } }), { maxRequests: 230, perMilliseconds: 10000, maxRPS: 23 });
+const axiosLimit = rateLimit(axios.create({ headers: { 'X-Riot-Token': process.env.RIOT_KEY } }), { maxRequests: 230, perMilliseconds: 10000, maxRPS: 19 });
 axiosRetry(axiosLimit, {
   retryCondition: (e) => {
     return (
@@ -28,8 +28,8 @@ export default class historyProvider {
   // key = process.env.RIOT_KEY
   // user = process.env.IGN
 
-  async getPuuid() {
-    const response = await axiosLimit.get(`https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${process.env.IGN}`);
+  async getPuuid(ign) {
+    const response = await axiosLimit.get(`https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${encodeURIComponent(ign)}`);
     return response;
   }
 

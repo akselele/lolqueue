@@ -26,17 +26,17 @@ export default class historyController {
 
   async getMatchDetails(req, res) {
     try {
-      const puuid = await this.historyProvider.getPuuid();
-
-      const matchIds = await this.historyProvider.getRecentMatches(puuid.puuid);
-
-      const matches = [];
-      for (let i = 0; i < matchIds.length; i += 1) {
-        /* eslint-disable no-await-in-loop */
-        const match = await this.historyProvider.getMatchDetails(matchIds[i]);
-        matches.push(match);
+      const puuid = await this.historyProvider.getPuuid(req.query.ign);
+      const matchIds = await this.historyProvider.getRecentMatches(puuid.data.puuid);
+      const promises = [];
+      /* eslint-disable-next-line */
+      for (let i = 0; i < matchIds.data.length; i++) {
+        promises.push(this.historyProvider.getMatchDetails(matchIds.data[i]));
       }
-      res.status(200).json({ matches });
+      const matches = await Promise.all(promises);
+      const filteredMatches = matches.map(el => el.data);
+      console.log(filteredMatches);
+      res.status(200).json({ filteredMatches });
     } catch (err) {
       if (err.response.status === 503) {
         res.status(400).json({ errMessage: `There seems to be an issue with the Riot API, please try again later. Error at: '${this.getApiCall(err.config.url)}'` });
@@ -67,7 +67,6 @@ export default class historyController {
       res.status(200).json({ filteredData });
     } catch (err) {
       res.status(400).json({ errMessage: `There seems to be an unknown error. Errorcode: ${err.response.status}` });
-      console.error(err);
     }
   }
 }

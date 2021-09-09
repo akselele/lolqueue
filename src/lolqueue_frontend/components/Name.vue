@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col col="12">
-        <NuxtLink to="/history">
+        <NuxtLink :to="`/history/${ign}`">
           <v-card
             class="d-inline-block mx-auto pa-md-4 rounded-xl textright shadow-2xl"
           >
@@ -15,7 +15,7 @@
                   src="https://placekitten.com/200/200"
                   class="rounded-circle mr-md-4"
                 ></v-img>
-                <v-col cols="auto" class="text-center pl-0">
+                <v-col cols="auto" class="text-center pl-0" style="width: 10rem;">
                   <v-row class="flex-column ma-0 fill-height" justify="center">
                     <v-col class="px-0">{{ ign }}</v-col>
                     <v-col class="px-0">{{ rank }} {{ elo }} LP</v-col>

@@ -1,5 +1,5 @@
 <template>
-  <v-app dark>
+  <v-app>
     <!-- <v-navigation-drawer
       v-model="drawer"
       :mini-variant="miniVariant"
@@ -114,11 +114,11 @@
 //     }
 //   }
 // }
-// </script>
+//
+</script>
 
 <style scoped>
-#app
-{
+#app {
   font-family: 'Asap', sans-serif;
 }
 </style>
