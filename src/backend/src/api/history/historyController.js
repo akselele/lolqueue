@@ -66,19 +66,8 @@ export default class historyController {
       const filteredData = data.data.filter(el => el.queueType === 'RANKED_SOLO_5x5');
       res.status(200).json({ filteredData });
     } catch (err) {
-      console.log(err);
-      this.waitForTimeout(err);
-      this.getRank(req, res);
-    }
-  }
-
-  waitForTimeout(data) {
-    if (data.response.status === 429 && data.response.headers['x-rate-limit-type'] === 'service') {
-      const timeout = Number(data.response.headers['retry-after']);
-      console.log(`Waiting for ${timeout}`);
-      setTimeout(() => {
-        console.log(`Waited for ${timeout} seconds due to service rate limit.`);
-      }, timeout);
+      res.status(400).json({ errMessage: `There seems to be an unknown error. Errorcode: ${err.response.status}` });
+      console.error(err);
     }
   }
 }

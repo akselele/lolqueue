@@ -15,7 +15,6 @@
         color="primary"
         indeterminate
       ></v-progress-circular>
-      {{ accounts }}
     </div>
   </div>
 </template>
@@ -27,19 +26,20 @@ export default {
   async asyncData(context) {
     const igns = ['Undercover CameL', 'Drυtutt', 'efsgesgs']
 
-    const ranks = {}
+    const ranks = [];
     for (let i = 0; i < igns.length; i++) {
-      const rank = await getRank(context, { params: { ign: igns[i] } })
-      if (rank.length > 0) {
-        const r = {}
-        r.IGN = igns[i]
-        r.rank = rank[0].tier
-        r.elo = rank[0].leaguePoints
-        r.loading = false
-        ranks.push(r)
+      const rank = await getRank(context, { params: { ign: igns[i] } });
+      if (rank.filteredData.length > 0) {
+        const { filteredData} = rank;
+        const r = {};
+        r.IGN = igns[i];
+        r.rank = filteredData[0].tier;
+        r.elo = filteredData[0].leaguePoints;
+        r.loading = false;
+        ranks.push(r);
       }
     }
-    return { ranks }
+    return { ranks };
   },
 }
 </script>
