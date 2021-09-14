@@ -35,7 +35,6 @@ export default class historyController {
       }
       const matches = await Promise.all(promises);
       const filteredMatches = matches.map(el => el.data);
-      console.log(filteredMatches);
       res.status(200).json({ filteredMatches });
     } catch (err) {
       if (err.response.status === 503) {

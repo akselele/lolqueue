@@ -5,6 +5,7 @@ const rateLimit = require('axios-rate-limit');
 
 const axiosLimit = rateLimit(axios.create({ headers: { 'X-Riot-Token': process.env.RIOT_KEY } }), { maxRequests: 230, perMilliseconds: 10000, maxRPS: 19 });
 axiosRetry(axiosLimit, {
+  retries: 3,
   retryCondition: (e) => {
     return (
       axiosRetry.isNetworkOrIdempotentRequestError(e) 
@@ -16,7 +17,7 @@ axiosRetry(axiosLimit, {
       const retryAfter = error.response.headers['retry-after'];
       if (retryAfter) {
         console.log(`Retrying in ${retryAfter} seconds`);
-        return retryAfter;
+        return retryAfter * 1000;
       }
     }
     // Can also just return 0 here for no delay if one isn't specified

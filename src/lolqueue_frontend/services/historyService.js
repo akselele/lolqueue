@@ -21,7 +21,6 @@ export async function getRank(ctx, igns) {
         r.IGN = igns[i];
         r.rank = filteredData[0].tier;
         r.elo = filteredData[0].leaguePoints;
-        r.loading = false;
         ranks.push(r);
       }
     }
