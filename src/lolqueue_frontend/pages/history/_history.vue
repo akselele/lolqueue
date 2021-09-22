@@ -1,11 +1,17 @@
 <template>
-  <div>{{ data }}</div>
+  <div>
+    <div v-for="game in data.filteredMatches" :key="game.metadata.matchId">
+      <GameCard :match="game"> </GameCard>
+    </div>
+  </div>
 </template>
 
 <script>
+import GameCard from '../../components/GameCard.vue'
 import { getMatchHistory } from '~/services/historyService'
 
 export default {
+  components: { GameCard },
   props: {},
   async asyncData(context) {
     const igns = context.store.state.names.igns

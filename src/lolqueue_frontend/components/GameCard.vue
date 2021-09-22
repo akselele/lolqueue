@@ -1,14 +1,14 @@
 <template>
-  <div></div>
+  <div>{{ match.metadata.matchId}}</div>
 </template>
 
 <script>
 export default {
   props: {
     match: {
-      type: Array,
+      type: Object,
       required: true,
-      default: () => [],
+      default: () => {},
     },
   },
 }
