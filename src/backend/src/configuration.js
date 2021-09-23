@@ -3,7 +3,9 @@ import {
   InjectionMode,
   Lifetime,
   asClass,
+  asValue,
 } from 'awilix';
+import cache from './cache';
   
 export default function configureDIContainer() {
   return createContainer()
@@ -23,5 +25,8 @@ export default function configureDIContainer() {
           injectionMode: InjectionMode.PROXY,
         },
       },
-    );
+    )
+    .register({
+      cache: asValue(cache, { lifetime: Lifetime.SINGLETON }),
+    });
 }

@@ -1,6 +1,7 @@
 export default class historyController {
-  constructor({ historyProvider }) {
+  constructor({ historyProvider, cache }) {
     this.historyProvider = historyProvider;
+    this.cache = cache;
   }
 
   // Next 2 methods dont get used, just there to check for errors
@@ -61,9 +62,17 @@ export default class historyController {
   /* eslint-disable-next-line */
   async getRank(req, res) {
     try {
-      const data = await this.historyProvider.getRank(req.query.ign);
-      const filteredData = data.data.filter(el => el.queueType === 'RANKED_SOLO_5x5');
-      res.status(200).json({ filteredData });
+      if (this.cache.has(`rankData-${req.query.ign}`)) {
+        const cacheData = this.cache.get(`rankData-${req.query.ign}`);
+        console.log('cache had data');
+        res.status(200).json({ filteredData: cacheData });
+      } else {
+        const data = await this.historyProvider.getRank(req.query.ign);
+        const filteredData = data.data.filter(el => el.queueType === 'RANKED_SOLO_5x5');
+        console.log('cache didn\'t have data');
+        this.cache.set(`rankData-${req.query.ign}`, filteredData);
+        res.status(200).json({ filteredData });
+      }
     } catch (err) {
       res.status(400).json({ errMessage: `There seems to be an unknown error. Errorcode: ${err.response.status}` });
     }
