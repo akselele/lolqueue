@@ -19,7 +19,8 @@ export async function getRank(ctx, igns) {
         const { filteredData } = rank;
         const r = {};
         r.IGN = igns[i];
-        r.rank = filteredData[0].tier;
+        r.tier = filteredData[0].tier;
+        r.rank = filteredData[0].rank;
         r.elo = filteredData[0].leaguePoints;
         ranks.push(r);
       }
