@@ -1,4 +1,5 @@
 <template>
+<<<<<<< Updated upstream
   <v-container>
         <NuxtLink :to="`/history/${ign}`">
   <v-card 
@@ -23,6 +24,25 @@
   </v-card>
         </NuxtLink>
   </v-container>
+=======
+<div>
+  <NuxtLink :to="`/history/${ign}`">
+    <v-card 
+    elevation="6"
+    nuxt
+    >
+      <v-card-title>
+        {{ ign }}
+      </v-card-title>
+      <v-card-subtitle>
+        {{ highElo.includes(tier) ? `${tier}` : `${tier} ${rank}` }} |
+        {{ elo }} LP
+      </v-card-subtitle>
+    </v-card>
+  </NuxtLink>
+</div>
+
+>>>>>>> Stashed changes
 </template>
   
 <script>

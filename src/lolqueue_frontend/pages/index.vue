@@ -1,4 +1,5 @@
 <template>
+<<<<<<< Updated upstream
 
   <v-container>
     <v-row>
@@ -10,6 +11,25 @@
         :elo="account.elo"
       >
       </Name>
+=======
+  <div class="flex flex-col w-max">
+    <div class="pl-md-4">
+      <button class="btn btn-primary">REFRESH ALL</button>
+    </div>
+    <div>
+      <div class="divider"></div>
+    </div>
+    <v-row style="background-color: red; width: 50rem;">
+      <v-col v-for="account in ranks" :key="account.IGN" cols="6">
+        <Name
+          :key="account.IGN"
+          :ign="account.IGN"
+          :rank="account.rank"
+          :tier="account.tier"
+          :elo="account.elo"
+        >
+        </Name>
+>>>>>>> Stashed changes
       </v-col>
     </v-row>
 
