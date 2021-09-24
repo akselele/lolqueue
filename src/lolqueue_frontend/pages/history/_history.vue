@@ -8,7 +8,7 @@
 
 <script>
 import GameCard from '../../components/GameCard.vue'
-import { getMatchHistory } from '~/services/historyService'
+import { getMatchHistoryCached } from '~/services/historyService'
 
 export default {
   components: { GameCard },
@@ -18,7 +18,7 @@ export default {
     const ign = context.params.history
     const containsIgn = igns.includes(ign)
     if (containsIgn) {
-      const data = await getMatchHistory(context, ign)
+      const data = await getMatchHistoryCached(context, ign)
       return { data }
     } else {
       context.redirect('/')

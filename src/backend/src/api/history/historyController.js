@@ -25,26 +25,28 @@ export default class historyController {
     }
   }
 
-  async getMatchDetails(req, res) {
+  async getMatchCached(req, res) {
     try {
-      if (this.cache.has(`matchData-${req.query.ign}`)) {
-        const cacheData = this.cache.get(`matchData-${req.query.ign}`);
-        console.log('MATCHES: cache had data');
-        res.status(200).json({ filteredMatches: cacheData });
-      } else {
-        const puuid = await this.historyProvider.getPuuid(req.query.ign);
-        const matchIds = await this.historyProvider.getRecentMatches(puuid.data.puuid);
-        const promises = [];
-        /* eslint-disable-next-line */
-        for (let i = 0; i < matchIds.data.length; i++) {
-          promises.push(this.historyProvider.getMatchDetails(matchIds.data[i]));
-        }
-        const matches = await Promise.all(promises);
-        const filteredMatches = matches.map(el => el.data);
-        console.log('MATCHES: cache didn\'t have data');
-        this.cache.set(`matchData-${req.query.ign}`, filteredMatches);
-        res.status(200).json({ filteredMatches });
+      const cacheData = this.cache.get(`matchData-${req.query.ign}`);
+      res.status(200).json({ filteredMatches: cacheData });
+    } catch (err) {
+      res.status(400).json({ errMessage: 'There seems to be an unknown error in the cache. Try to refresh the data.' });
+    }
+  }
+
+  async getMatchRefresh(req, res) {
+    try {
+      const puuid = await this.historyProvider.getPuuid(req.query.ign);
+      const matchIds = await this.historyProvider.getRecentMatches(puuid.data.puuid);
+      const promises = [];
+      /* eslint-disable-next-line */
+      for (let i = 0; i < matchIds.data.length; i++) {
+        promises.push(this.historyProvider.getMatchDetails(matchIds.data[i]));
       }
+      const matches = await Promise.all(promises);
+      const filteredMatches = matches.map(el => el.data);
+      this.cache.set(`matchData-${req.query.ign}`, filteredMatches);
+      res.status(200).json({ filteredMatches });
     } catch (err) {
       if (err.response.status === 503) {
         res.status(400).json({ errMessage: `There seems to be an issue with the Riot API, please try again later. Error at: '${this.getApiCall(err.config.url)}'` });
@@ -67,22 +69,24 @@ export default class historyController {
     }
   }
 
-  /* eslint-disable-next-line */
-  async getRank(req, res) {
+  async getRankRefresh(req, res) {
     try {
-      if (this.cache.has(`rankData-${req.query.ign}`)) {
-        const cacheData = this.cache.get(`rankData-${req.query.ign}`);
-        console.log('RANKS: cache had data');
-        res.status(200).json({ filteredData: cacheData });
-      } else {
-        const data = await this.historyProvider.getRank(req.query.ign);
-        const filteredData = data.data.filter(el => el.queueType === 'RANKED_SOLO_5x5');
-        console.log('RANKS: cache didn\'t have data');
-        this.cache.set(`rankData-${req.query.ign}`, filteredData);
-        res.status(200).json({ filteredData });
-      }
+      const data = await this.historyProvider.getRank(req.query.ign);
+      const filteredData = data.data.filter(el => el.queueType === 'RANKED_SOLO_5x5');
+      this.cache.set(`rankData-${req.query.ign}`, filteredData);
+      res.status(200).json({ filteredData });
     } catch (err) {
       res.status(400).json({ errMessage: `There seems to be an unknown error. Errorcode: ${err.response.status}` });
+    }
+  }
+
+  /* eslint-disable-next-line */
+  async getRankCached(req, res) {
+    try {
+      const cacheData = this.cache.get(`rankData-${req.query.ign}`);
+      res.status(200).json({ filteredData: cacheData });
+    } catch (err) {
+      res.status(400).json({ errMessage: 'There seems to be an unknown error in the cache. Try to refresh the data.' });
     }
   }
 }
