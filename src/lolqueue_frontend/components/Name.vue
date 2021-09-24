@@ -45,13 +45,3 @@ export default {
   },
 }
 </script>
-
-
-<style scoped>
-.region {
-  position: absolute;
-  font-size: 0.75em;
-}
-.testeronii {
-}
-</style>
