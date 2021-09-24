@@ -1,32 +1,27 @@
 <template>
   <v-container>
-    <v-row>
-      <v-col col="12">
         <NuxtLink :to="`/history/${ign}`">
-          <v-card
-            class="d-inline-block mx-auto pa-md-4 rounded-xl textright shadow-2xl"
-          >
-            <div class="region d-inline-block ml-md-n8">EUW</div>
-            <v-container>
-              <v-row align="center">
-                <v-img
-                  height="100"
-                  width="100"
-                  src="https://placekitten.com/200/200"
-                  class="rounded-circle mr-md-4"
-                ></v-img>
-                <v-col cols="auto" class="text-center pl-0" style="width: 10rem;">
-                  <v-row class="flex-column ma-0 fill-height" justify="center">
-                    <v-col class="px-0">{{ ign }}</v-col>
-                    <v-col class="px-0">{{ rank }} {{ elo }} LP</v-col>
-                  </v-row>
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-card>
+  <v-card 
+    :loading="loading"
+    class="mx-auto my-12"
+    max-width="300"
+  >
+
+<h4 class="ribbon">EUW</h4>
+    <img style="width: 100%" src="../assets/musht.png">
+
+    <v-card-title style="text-align: center" >{{ign}}</v-card-title>
+
+    <v-card-text>
+
+      <div class="my-4 text-subtitle-1">
+        {{rank}}
+      </div>
+    </v-card-text>
+
+    
+  </v-card>
         </NuxtLink>
-      </v-col>
-    </v-row>
   </v-container>
 </template>
   
@@ -61,5 +56,14 @@ export default {
 
 .textright {
   text-align: right;
+}
+
+.ribbon {
+  text-align: center;
+  margin: 0;
+  padding: 0.2rem 0.2rem;
+  background: rebeccapurple;
+  color:white;
+  position: relative;
 }
 </style>

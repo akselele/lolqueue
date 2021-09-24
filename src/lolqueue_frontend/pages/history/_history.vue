@@ -1,5 +1,8 @@
 <template>
-  <div><game-card /></div>
+  <v-container>
+    <h1>games</h1>
+    <game-card />
+  </v-container>
 </template>
 
 <script>

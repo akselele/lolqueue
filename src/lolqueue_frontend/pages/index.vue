@@ -1,6 +1,8 @@
 <template>
-  <div class="center d-flex flex-column flex-md-row">
-    <div v-for="account in ranks" :key="account.IGN">
+
+  <v-container>
+    <v-row>
+          <v-col v-for="account in ranks" :key="account.IGN">
       <Name
         :key="account.IGN"
         :ign="account.IGN"
@@ -8,8 +10,12 @@
         :elo="account.elo"
       >
       </Name>
-    </div>
-  </div>
+      </v-col>
+    </v-row>
+
+    
+  </v-container>
+
 </template>
 
 <script>
