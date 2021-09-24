@@ -6,8 +6,14 @@
     <div>
       <div class="divider"></div>
     </div>
-    <v-row no-gutters>
-      <v-col v-for="account in ranks" :key="account.IGN" cols="6" md="6" align-self="start" class="pa-md-4 w-max">
+    <v-row class="names">
+      <v-col
+        v-for="account in ranks"
+        :key="account.IGN"
+        cols="12"
+        md="6"
+        xs="2"
+      >
         <Name
           :key="account.IGN"
           :ign="account.IGN"
@@ -26,9 +32,9 @@ import { getRank } from '~/services/historyService'
 
 export default {
   async asyncData(context) {
-    const igns = context.store.state.names.igns;
-    const ranks = await getRank(context, igns);
-    return { ranks };
+    const igns = context.store.state.names.igns
+    const ranks = await getRank(context, igns)
+    return { ranks }
   },
   // computed: {
   //   dividerLength() {
@@ -39,3 +45,15 @@ export default {
   // },
 }
 </script>
+
+<style scoped>
+.names{
+  min-width: 496.933px
+}
+
+@media only screen and (max-width: 600px) {
+  .names {
+    min-width: 300px;
+  }
+}
+</style>

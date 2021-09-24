@@ -1,18 +1,17 @@
 <template>
-  <NuxtLink :to="`/history/${ign}`">
-    <v-card 
-    elevation="6"
-    nuxt
-    >
-      <v-card-title>
-        {{ ign }}
-      </v-card-title>
-      <v-card-subtitle>
-        {{ highElo.includes(tier) ? `${tier}` : `${tier} ${rank}` }} |
-        {{ elo }} LP
-      </v-card-subtitle>
-    </v-card>
-  </NuxtLink>
+  <div>
+    <NuxtLink :to="`/history/${ign}`">
+      <v-card elevation="6" nuxt>
+        <v-card-title>
+          {{ ign }}
+        </v-card-title>
+        <v-card-subtitle>
+          {{ highElo.includes(tier) ? `${tier}` : `${tier} ${rank}` }} |
+          {{ elo }} LP
+        </v-card-subtitle>
+      </v-card>
+    </NuxtLink>
+  </div>
 </template>
   
 <script>
@@ -53,7 +52,6 @@ export default {
   position: absolute;
   font-size: 0.75em;
 }
-
 .testeronii {
 }
 </style>
