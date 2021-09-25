@@ -1,28 +1,20 @@
 <template>
-  <div>
-    <NuxtLink :to="`/history/${ign}`">
-      <v-card elevation="6" nuxt>
-        <v-row align="start">
-          <v-col class="shrink">
-            <v-img
-              height="100"
-              width="100"
-              :src="getIcon"
-              class="rounded-circle mt-md-2 mb-md-2 ml-md-2"
-            ></v-img>
-          </v-col>
-          <v-col>
-            <v-card-title>
-              {{ ign }}
-            </v-card-title>
-            <v-card-subtitle>
-              {{ highElo.includes(tier) ? `${tier}` : `${tier} ${rank}` }} |
-              {{ elo }} LP
-            </v-card-subtitle>
-          </v-col>
-        </v-row>
-      </v-card>
-    </NuxtLink>
+  <div class="flex flex-col">
+    <div>
+      <NuxtLink :to="`/history/${ign}`">
+        <div style="width: 250px" class="flex p-5 names rounded-xl">
+          <img class="rounded-full w-20" :src="getIcon" alt="Summonner Icon" />
+          <div class="flex flex-col my-auto ml-5 mr-1">
+            <p class="font-bold text-dark-text">{{ ign }}</p>
+            <p class="text-dark-text">
+              {{ highElo.includes(tier) ? `${tier}` : `${tier} ${rank}` }}
+            </p>
+            <p class="text-dark-text">{{ elo }} LP</p>
+          </div>
+        </div>
+      </NuxtLink>
+    </div>
+    <p class="mx-auto mt-3 font-bold">MAIN</p>
   </div>
 </template>
   
@@ -67,3 +59,10 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.names {
+  --tw-bg-opacity: 1;
+  background-color: rgba(36, 36, 46, var(--tw-bg-opacity));
+}
+</style>
