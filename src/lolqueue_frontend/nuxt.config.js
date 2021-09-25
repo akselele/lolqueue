@@ -5,8 +5,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - lolqueue_frontend',
-    title: 'lolqueue_frontend',
+    title: 'LoLQueue',
     htmlAttrs: {
       lang: 'en',
       'data-theme': 'dark', 

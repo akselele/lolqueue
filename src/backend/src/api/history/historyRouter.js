@@ -6,7 +6,7 @@ import historyController from './historyController';
 const router = Router();
 const historyApi = makeInvoker(historyController);
 
-router.get('/matches', historyApi('getMatchDetailsCached'));
+router.get('/matches', historyApi('getMatchCached'));
 router.get('/rank', historyApi('getRankCached'));
 router.get('/refresh/rank', historyApi('getRankRefresh'));
 router.get('/refresh/ratches', historyApi('getMatchRefresh'));

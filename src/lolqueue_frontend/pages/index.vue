@@ -1,7 +1,10 @@
 <template>
   <div class="w-screen h-screen flex flex-col bg-dark-base">
     <div class="flex flex-col md:flex=row m-auto">
-      <button class="btn btn-primary rounded-xl mb-8 md:mt-0 mt-4" @click="refreshRanks">
+      <button
+        class="btn btn-primary rounded-xl mb-8 md:mt-0 mt-4"
+        @click="refreshRanks"
+      >
         REFRESH ALL
       </button>
       <div v-if="ranks.length <= 2">
@@ -49,12 +52,15 @@ export default {
     const ranks = await getRankCached(context, igns)
     return { ranks }
   },
+  head: {
+    title: 'Index - LoLQueue',
+  },
   computed: {
     ranksInTwoRows() {
       const result = []
       for (let i = 0; i < this.ranks.length; i = i + 2) {
-        const subArray = this.ranks.slice(i, i + 2);
-        result.push(subArray);
+        const subArray = this.ranks.slice(i, i + 2)
+        result.push(subArray)
       }
       return result
     },
