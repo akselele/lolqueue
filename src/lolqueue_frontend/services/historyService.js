@@ -29,6 +29,7 @@ export async function getRankRefresh(ctx, igns) {
         const { filteredData } = rank;
         const r = {};
         r.IGN = igns[i];
+        r.icon = filteredData[0].profileIconId;
         r.tier = filteredData[0].tier;
         r.rank = filteredData[0].rank;
         r.elo = filteredData[0].leaguePoints;
@@ -52,6 +53,7 @@ export async function getRankCached(ctx, igns) {
         const { filteredData } = rank;
         const r = {};
         r.IGN = igns[i];
+        r.icon = filteredData[0].profileIconId;
         r.tier = filteredData[0].tier;
         r.rank = filteredData[0].rank;
         r.elo = filteredData[0].leaguePoints;

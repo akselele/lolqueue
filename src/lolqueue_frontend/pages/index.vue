@@ -6,7 +6,7 @@
     <div>
       <div class="divider"></div>
     </div>
-    <v-row class="names">
+    <v-row>
       <v-col
         v-for="account in ranks"
         :key="account.IGN"
@@ -20,6 +20,8 @@
           :rank="account.rank"
           :tier="account.tier"
           :elo="account.elo"
+          :icon="account.icon"
+          class="names"
         >
         </Name>
       </v-col>
@@ -38,8 +40,8 @@ export default {
   },
   methods: {
     async refreshRanks() {
-      const igns = this.$store.state.names.igns
-      const refreshedRanks = await getRankRefresh(this, igns)
+      const igns = this.$store.state.names.igns;
+      const refreshedRanks = await getRankRefresh(this, igns);
       this.ranks = refreshedRanks;
     },
   },
@@ -54,6 +56,12 @@ export default {
 @media only screen and (max-width: 600px) {
   .names {
     min-width: 300px;
+  }
+}
+
+@media only screen and (max-width: 1300px) {
+  .names {
+    min-width: 350px;
   }
 }
 </style>

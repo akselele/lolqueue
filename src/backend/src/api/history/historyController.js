@@ -72,7 +72,9 @@ export default class historyController {
   async getRankRefresh(req, res) {
     try {
       const data = await this.historyProvider.getRank(req.query.ign);
+      const { profileIconId } = data;
       const filteredData = data.data.filter(el => el.queueType === 'RANKED_SOLO_5x5');
+      filteredData[0].profileIconId = profileIconId;
       this.cache.set(`rankData-${req.query.ign}`, filteredData);
       res.status(200).json({ filteredData });
     } catch (err) {

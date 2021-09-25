@@ -47,6 +47,7 @@ export default class historyProvider {
   async getRank(ign) {
     const info = await axiosLimit.get(`https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${encodeURIComponent(ign)}`);
     const response = await axiosLimit.get(`https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/${info.data.id}`);
+    response.profileIconId = info.data.profileIconId;
     return response;
   }
 }
