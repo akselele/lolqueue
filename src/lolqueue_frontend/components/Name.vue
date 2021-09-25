@@ -2,7 +2,7 @@
   <div class="flex flex-col">
     <div>
       <NuxtLink :to="`/history/${ign}`">
-        <div style="width: 290px" class="flex p-5 names rounded-xl">
+        <div style="width: 290px" class="flex p-5 bg-gray-900 rounded-xl">
           <img class="rounded-full w-20" :src="getIcon" alt="Summonner Icon" />
           <div class="flex flex-col my-auto ml-5 mr-1">
             <p class="font-bold text-dark-text">{{ ign }}</p>
@@ -59,10 +59,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-.names {
-  --tw-bg-opacity: 1;
-  background-color: rgba(36, 36, 46, var(--tw-bg-opacity));
-}
-</style>
