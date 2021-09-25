@@ -2,7 +2,7 @@
   <div class="flex flex-col">
     <div>
       <NuxtLink :to="`/history/${ign}`">
-        <div style="width: 250px" class="flex p-5 names rounded-xl">
+        <div style="width: 290px" class="flex p-5 names rounded-xl">
           <img class="rounded-full w-20" :src="getIcon" alt="Summonner Icon" />
           <div class="flex flex-col my-auto ml-5 mr-1">
             <p class="font-bold text-dark-text">{{ ign }}</p>
