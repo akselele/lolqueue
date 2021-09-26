@@ -9,6 +9,6 @@ const historyApi = makeInvoker(historyController);
 router.get('/matches', historyApi('getMatchCached'));
 router.get('/rank', historyApi('getRankCached'));
 router.get('/refresh/rank', historyApi('getRankRefresh'));
-router.get('/refresh/ratches', historyApi('getMatchRefresh'));
+router.get('/refresh/matches', historyApi('getMatchRefresh'));
 
 export default router;

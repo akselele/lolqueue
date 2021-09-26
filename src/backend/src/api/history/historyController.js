@@ -28,7 +28,7 @@ export default class historyController {
   async getMatchCached(req, res) {
     try {
       const cacheData = this.cache.get(`matchData-${req.query.ign}`);
-      res.status(200).json({ filteredMatches: cacheData });
+      res.status(200).json(cacheData);
     } catch (err) {
       res.status(400).json({ errMessage: 'There seems to be an unknown error in the cache. Try to refresh the data.' });
     }
@@ -46,7 +46,7 @@ export default class historyController {
       const matches = await Promise.all(promises);
       const filteredMatches = matches.map(el => el.data);
       this.cache.set(`matchData-${req.query.ign}`, filteredMatches);
-      res.status(200).json({ filteredMatches });
+      res.status(200).json(filteredMatches);
     } catch (err) {
       if (err.response.status === 503) {
         res.status(400).json({ errMessage: `There seems to be an issue with the Riot API, please try again later. Error at: '${this.getApiCall(err.config.url)}'` });
@@ -75,8 +75,8 @@ export default class historyController {
       const { profileIconId } = data;
       const filteredData = data.data.filter(el => el.queueType === 'RANKED_SOLO_5x5');
       filteredData[0].profileIconId = profileIconId;
-      this.cache.set(`rankData-${req.query.ign}`, filteredData);
-      res.status(200).json({ filteredData });
+      this.cache.set(`rankData-${req.query.ign}`, filteredData[0]);
+      res.status(200).json(filteredData[0]);
     } catch (err) {
       res.status(400).json({ errMessage: `There seems to be an unknown error. Errorcode: ${err.response.status}` });
     }
@@ -86,7 +86,7 @@ export default class historyController {
   async getRankCached(req, res) {
     try {
       const cacheData = this.cache.get(`rankData-${req.query.ign}`);
-      res.status(200).json({ filteredData: cacheData });
+      res.status(200).json(cacheData);
     } catch (err) {
       res.status(400).json({ errMessage: 'There seems to be an unknown error in the cache. Try to refresh the data.' });
     }

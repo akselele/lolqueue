@@ -25,14 +25,13 @@ export async function getRank(ctx, igns, cached) {
       } else {
         rank = await ctx.$axios.$get(`${URL}/history/refresh/rank`, params);
       }
-      if (rank.filteredData.length > 0) {
-        const { filteredData } = rank;
+      if (rank) {
         const r = {};
         r.IGN = igns[i];
-        r.icon = filteredData[0].profileIconId;
-        r.tier = filteredData[0].tier;
-        r.rank = filteredData[0].rank;
-        r.elo = filteredData[0].leaguePoints;
+        r.icon = rank.profileIconId;
+        r.tier = rank.tier;
+        r.rank = rank.rank;
+        r.elo = rank.leaguePoints;
         ranks.push(r);
       }
     }

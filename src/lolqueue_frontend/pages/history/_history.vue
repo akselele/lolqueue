@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="game in data.filteredMatches" :key="game.metadata.matchId">
+    <div v-for="game in data" :key="game.metadata.matchId">
       <GameCard :match="game"> </GameCard>
     </div>
   </div>
@@ -8,7 +8,7 @@
 
 <script>
 import GameCard from '../../components/GameCard.vue'
-import { getMatchHistoryCached } from '~/services/historyService'
+import { getMatchHistory } from '~/services/historyService'
 
 export default {
   components: { GameCard },
@@ -18,7 +18,7 @@ export default {
     const ign = context.params.history
     const containsIgn = igns.includes(ign)
     if (containsIgn) {
-      const data = await getMatchHistoryCached(context, ign)
+      const data = await getMatchHistory(context, ign, true)
       return { data }
     } else {
       context.redirect('/')
