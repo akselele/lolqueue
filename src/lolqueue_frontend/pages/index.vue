@@ -3,11 +3,13 @@
     <div class="flex flex-col md:flex=row m-auto">
       <button
         class="btn btn-primary rounded-xl mb-8 md:mt-0 mt-4"
-        @click="refreshRanks"
+        :class="loading ? 'loading' : ''"
+        @click.once="refreshRanks"
       >
-        REFRESH ALL
+        REFRESH RANKS
       </button>
-      <div v-if="ranks.length <= 2">
+      <!-- <div class="divider"></div> -->
+      <div v-if="ranks && ranks.length <= 2">
         <div class="flex flex-col md:flex-row gap-8">
           <template v-for="account in ranks">
             <Name
@@ -21,7 +23,7 @@
           </template>
         </div>
       </div>
-      <div v-else class="flex flex-col gap-4">
+      <div v-else-if="ranks && ranks.length > 2" class="flex flex-col gap-4">
         <div
           v-for="(item, index) in ranksInTwoRows"
           :key="index"
@@ -39,6 +41,10 @@
           </template>
         </div>
       </div>
+      <div v-else>
+        <p>There's been an error getting the data.</p>
+        <p>Try refreshing the data.</p>
+      </div>
     </div>
   </div>
 </template>
@@ -52,8 +58,13 @@ export default {
     const ranks = await getRankCached(context, igns)
     return { ranks }
   },
+  data() {
+    return {
+      loading: false,
+    }
+  },
   head: {
-    title: 'Index - LoLQueue',
+    title: 'Home - LoLQueue',
   },
   computed: {
     ranksInTwoRows() {
@@ -67,9 +78,11 @@ export default {
   },
   methods: {
     async refreshRanks() {
+      this.loading = true
       const igns = this.$store.state.names.igns
       const refreshedRanks = await getRankRefresh(this, igns)
       this.ranks = refreshedRanks
+      this.loading = false
     },
   },
 }
