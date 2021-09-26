@@ -50,12 +50,12 @@
 </template>
 
 <script>
-import { getRankCached, getRankRefresh } from '~/services/historyService'
+import { getRank } from '~/services/historyService'
 
 export default {
   async asyncData(context) {
     const igns = context.store.state.names.igns
-    const ranks = await getRankCached(context, igns)
+    const ranks = await getRank(context, igns, true)
     return { ranks }
   },
   data() {
@@ -80,7 +80,7 @@ export default {
     async refreshRanks() {
       this.loading = true
       const igns = this.$store.state.names.igns
-      const refreshedRanks = await getRankRefresh(this, igns)
+      const refreshedRanks = await getRank(this, igns, false)
       this.ranks = refreshedRanks
       this.loading = false
     },
