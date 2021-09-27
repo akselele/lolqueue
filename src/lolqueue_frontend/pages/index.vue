@@ -9,7 +9,7 @@
         REFRESH RANKS
       </button>
       <!-- <div class="divider"></div> -->
-      <div v-if="ranks && ranks.length <= 2">
+      <div v-if="ranks && ranks.length <= 2">  
         <div class="flex flex-col md:flex-row gap-8">
           <template v-for="account in ranks">
             <Name
@@ -41,7 +41,7 @@
           </template>
         </div>
       </div>
-      <div v-else>
+      <div v-else-if="ranks.length === 0">
         <p>There's been an error getting the data.</p>
         <p>Try refreshing the data.</p>
       </div>

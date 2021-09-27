@@ -1,7 +1,20 @@
 <template>
-  <div>
-    <div v-for="game in data" :key="game.metadata.matchId">
-      <GameCard :match="game"> </GameCard>
+  <div class="w-screen h-screen flex flex-col bg-dark-base">
+    <div class="flex flex-col md:flex=row m-auto">
+      <button
+        class="btn btn-primary rounded-xl mb-8 md:mt-0 mt-4"
+        :class="loading ? 'loading' : ''"
+        @click.once="refreshMatches"
+      >
+        REFRESH MATCHES
+      </button>
+      <div class="flex flex-row gap-4">
+        <div class="flex flex-col gap-4">
+          <template v-for="game in matches">
+            <GameCard :key="game.metadata.matchId" :match="game" :ign="ign" />
+          </template>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -12,21 +25,29 @@ import { getMatchHistory } from '~/services/historyService'
 
 export default {
   components: { GameCard },
-  props: {},
   async asyncData(context) {
     const igns = context.store.state.names.igns
     const ign = context.params.history
     const containsIgn = igns.includes(ign)
     if (containsIgn) {
-      const data = await getMatchHistory(context, ign, true)
-      return { data }
+      const matches = await getMatchHistory(context, ign, true)
+      return { matches, ign }
     } else {
       context.redirect('/')
     }
   },
-  // async asyncData(context) {
-  //   const matches = await getMatchHistory(context)
-  //   return { matches }
-  // },
+  data() {
+    return {
+      loading: false,
+    }
+  },
+  methods: {
+    async refreshMatches() {
+      this.loading = true
+      const refreshedMatches = await getMatchHistory(this, this.ign, false)
+      this.matches = refreshedMatches
+      this.loading = false
+    },
+  },
 }
 </script>
