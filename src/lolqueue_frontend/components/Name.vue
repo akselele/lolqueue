@@ -54,7 +54,7 @@ export default {
   },
   computed: {
     getIcon(icon) {
-      return `https://ddragon.leagueoflegends.com/cdn/${this.$store.state.names.patch}/img/profileicon/${this.icon}.png`
+      return `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/${this.icon}.jpg`
     },
   },
 }
