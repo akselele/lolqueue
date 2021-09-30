@@ -35,7 +35,7 @@ export default class historyProvider {
   }
 
   async getRecentMatches(puuid) {
-    const response = await axiosLimit.get(`https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=20`);
+    const response = await axiosLimit.get(`https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?queue=420&type=ranked&start=0&count=20`);
     return response;
   }
 
