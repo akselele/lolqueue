@@ -8,7 +8,7 @@ axiosRetry(axiosLimit, {
   retries: 3,
   retryCondition: (e) => {
     return (
-      axiosRetry.isNetworkOrIdempotentRequestError(e) 
+      axiosRetry.isNetworkOrIdempotentRequestError(e)
       || e.response.status === 429
     );
   },
@@ -35,7 +35,7 @@ export default class historyProvider {
   }
 
   async getRecentMatches(puuid) {
-    const response = await axiosLimit.get(`https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?queue=420&type=ranked&start=0&count=20`);
+    const response = await axiosLimit.get(`https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?queue=420&type=rankestart=0&count=20`);
     return response;
   }
 
@@ -49,5 +49,10 @@ export default class historyProvider {
     const response = await axiosLimit.get(`https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/${info.data.id}`);
     response.profileIconId = info.data.profileIconId;
     return response;
+  }
+
+  async getChallengerRank() {
+    const data = await axiosLimit.get('https://euw1.api.riotgames.com/lol/league/v4/challengerleagues/by-queue/RANKED_SOLO_5x5');
+    return data;
   }
 }

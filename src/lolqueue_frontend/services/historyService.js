@@ -32,6 +32,7 @@ export async function getRank(ctx, igns, cached) {
         r.tier = rank.tier;
         r.rank = rank.rank;
         r.elo = rank.leaguePoints;
+        if(rank.tier === 'CHALLENGER') r.challengerRank = rank.challengerRank;
         ranks.push(r);
       }
     }

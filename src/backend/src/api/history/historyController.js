@@ -75,6 +75,7 @@ export default class historyController {
       const { profileIconId } = data;
       const filteredData = data.data.filter(el => el.queueType === 'RANKED_SOLO_5x5');
       filteredData[0].profileIconId = profileIconId;
+      if (filteredData[0].tier === 'CHALLENGER') filteredData[0].challengerRank = await this.getChallengerRankRefresh(req.query.ign);
       this.cache.set(`rankData-${req.query.ign}`, filteredData[0]);
       res.status(200).json(filteredData[0]);
     } catch (err) {
@@ -90,5 +91,19 @@ export default class historyController {
     } catch (err) {
       res.status(400).json({ errMessage: 'There seems to be an unknown error in the cache. Try to refresh the data.' });
     }
+  }
+
+  async getChallengerRankRefresh(ign) {
+    try {
+      const { data } = await this.historyProvider.getChallengerRank();
+      const orderedData = data.entries.sort((first, second) => {
+        return second.leaguePoints - first.leaguePoints;
+      });
+      const rank = orderedData.findIndex(e => e.summonerName === ign);
+      return rank;
+    } catch (err) {
+      console.error(err);
+    }
+    return -1;
   }
 }

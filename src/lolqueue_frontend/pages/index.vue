@@ -4,7 +4,7 @@
       <button
         class="btn btn-primary rounded-xl mb-8 md:mt-0 mt-4"
         :class="loading ? 'loading' : ''"
-        @click.once="refreshRanks"
+        @click="refreshRanks"
       >
         REFRESH RANKS
       </button>
@@ -19,6 +19,7 @@
               :tier="account.tier"
               :elo="account.elo"
               :icon="account.icon"
+              :challengerrank="account.challengerRank"
             />
           </template>
         </div>
@@ -37,6 +38,7 @@
               :tier="account.tier"
               :elo="account.elo"
               :icon="account.icon"
+              :challengerrank="account.challengerRank"
             />
           </template>
         </div>

@@ -14,7 +14,13 @@
         </div>
       </NuxtLink>
     </div>
-    <p class="mx-auto mt-3 font-bold">MAIN</p>
+    <p
+      v-if="challengerrank && challengerrank > 0"
+      class="mx-auto mt-3 font-bold"
+    >
+      MAIN | RANK {{ challengerrank }}
+    </p>
+    <p v-else class="mx-auto mt-3 font-bold">MAIN</p>
   </div>
 </template>
   
@@ -45,6 +51,11 @@ export default {
       type: Number,
       required: true,
       default: 0,
+    },
+    challengerrank: {
+      type: Number,
+      required: false,
+      default: -1,
     },
   },
   data() {
