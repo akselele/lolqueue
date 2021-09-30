@@ -51,6 +51,7 @@ export default class historyController {
       if (err.response.status === 503) {
         res.status(400).json({ errMessage: `There seems to be an issue with the Riot API, please try again later. Error at: '${this.getApiCall(err.config.url)}'` });
       } else {
+        console.log(err);
         res.status(400).json({ errMessage: `There seems to be an unknown error. Errorcode: ${err.response.status}` });
       }
     }

@@ -2,7 +2,7 @@
   <div class="w-screen h-screen flex flex-col bg-dark-base">
     <div class="flex flex-col md:flex=row m-auto">
       <button
-        class="btn btn-primary rounded-xl mb-8 md:mt-0 mt-4"
+        class="btn btn-primary rounded-xl mb-8 mt-4"
         :class="loading ? 'loading' : ''"
         @click="refreshRanks"
       >
@@ -19,6 +19,8 @@
               :tier="account.tier"
               :elo="account.elo"
               :icon="account.icon"
+              :wins="account.wins"
+              :losses="account.losses"
               :challengerrank="account.challengerRank"
             />
           </template>
@@ -38,6 +40,8 @@
               :tier="account.tier"
               :elo="account.elo"
               :icon="account.icon"
+              :wins="account.wins"
+              :losses="account.losses"
               :challengerrank="account.challengerRank"
             />
           </template>

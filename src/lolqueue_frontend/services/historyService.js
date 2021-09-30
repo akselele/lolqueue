@@ -29,6 +29,8 @@ export async function getRank(ctx, igns, cached) {
         const r = {};
         r.IGN = igns[i];
         r.icon = rank.profileIconId;
+        r.wins = rank.wins;
+        r.losses = rank.losses;
         r.tier = rank.tier;
         r.rank = rank.rank;
         r.elo = rank.leaguePoints;
