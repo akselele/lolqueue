@@ -1,18 +1,59 @@
 <template>
   <div class="flex flex-row">
-    <div style="width: 290px" class="flex p-5 bg-gray-900 rounded-xl">
-      <img class="w-20 h-20" :src="getChampIcon" alt="Champion Played" />
+    <div class="flex p-5 bg-gray-900 rounded-xl">
+      <div>
+        <img class="w-20 h-20" :src="getChampIcon()" alt="Champion Played" />
+      </div>
       <div class="flex flex-col my-auto ml-5 mr-1">
-        <p
-          class="font-bold text-dark-text"
-          :class="isVictory ? 'text-green-500' : 'text-red-500'"
-        >
-          {{ isVictory ? 'VICTORY' : 'DEFEAT' }}
-          {{ gameDuration }}
-        </p>
-        <div class="flex flex-col">
-          <img :src="getSummonerSpell(playerData.summoner1Id)" class="w-5 h-5" />
-          <img :src="getSummonerSpell(playerData.summoner2Id)" class="w-5 h-5" />
+        <div>
+          <p
+            class="font-bold text-dark-text"
+            :class="isVictory() ? 'text-green-500' : 'text-red-500'"
+          >
+            {{ isVictory() ? 'VICTORY' : 'DEFEAT' }}
+            {{ gameDuration }}
+          </p>
+        </div>
+        <div class="flex flex-row w-5">
+          <img
+            :src="getSummonerSpell(playerData.summoner1Id)"
+            class="w-5 h-5"
+          />
+          <img
+            :src="getSummonerSpell(playerData.summoner2Id)"
+            class="w-5 h-5"
+          />
+        </div>
+        <div>
+          <p class="text-dark-text">
+            {{ playerData.kills }}/{{ playerData.deaths }}/{{
+              playerData.assists
+            }}
+          </p>
+        </div>
+      </div>
+      <div class="flex flex-col my-auto ml-5">
+        <div class="flex flex-row">
+          <template v-for="item in playerData.items.slice(0, 3)">
+            <img
+              :key="item"
+              class="w-10 h-10"
+              :src="getItemIcon(item)"
+              alt="Item"
+              :style="[item === 0 ? { 'display':'none'} : {}]"
+            />
+          </template>
+        </div>
+        <div class="flex flex-row">
+          <template v-for="item in playerData.items.slice(3, 6)">
+            <img
+              :key="item"
+              class="w-10 h-10"
+              :src="getItemIcon(item)"
+              alt="Item"
+              :style="[item === 0 ? { 'display':'none'} : {}]"
+            />
+          </template>
         </div>
       </div>
     </div>
@@ -53,7 +94,23 @@ export default {
       },
     }
   },
-  computed: {
+  created() {
+    const minutes = Math.floor(this.match.info.gameDuration / 60000)
+    const seconds = ((this.match.info.gameDuration % 60000) / 1000).toFixed(0)
+    this.gameDuration = minutes + ':' + (seconds < 10 ? '0' : '') + seconds
+    const items = []
+    items.push(this.playerData.item0)
+    items.push(this.playerData.item1)
+    items.push(this.playerData.item2)
+    items.push(this.playerData.item3)
+    items.push(this.playerData.item4)
+    items.push(this.playerData.item5)
+    this.playerData.items = items
+  },
+  methods: {
+    getSummonerSpell(id) {
+      return `https://ddragon.leagueoflegends.com/cdn/11.19.1/img/spell/${this.summonerSpells[id]}.png`
+    },
     getChampIcon() {
       const champ = this.playerData.championName
       return `https://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/${champ}.png`
@@ -61,15 +118,8 @@ export default {
     isVictory() {
       return this.playerData.win
     },
-  },
-  created() {
-    const minutes = Math.floor(this.match.info.gameDuration / 60000)
-    const seconds = ((this.match.info.gameDuration % 60000) / 1000).toFixed(0)
-    this.gameDuration = minutes + ':' + (seconds < 10 ? '0' : '') + seconds
-  },
-  methods: {
-    getSummonerSpell(id) {
-      return `https://ddragon.leagueoflegends.com/cdn/11.19.1/img/spell/${this.summonerSpells[id]}.png`
+    getItemIcon(id) {
+      return `https://ddragon.leagueoflegends.com/cdn/11.19.1/img/item/${id}.png`
     },
   },
 }
