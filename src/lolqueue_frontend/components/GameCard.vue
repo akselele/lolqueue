@@ -14,7 +14,7 @@
             {{ gameDuration }}
           </p>
         </div>
-        <div class="flex flex-row w-5">
+        <div class="flex flex-row w-5 mt-2">
           <img
             :src="getSummonerSpell(playerData.summoner1Id)"
             class="w-5 h-5"
@@ -25,7 +25,7 @@
           />
         </div>
         <div>
-          <p class="text-dark-text">
+          <p class="text-dark-text mt-2">
             {{ playerData.kills }}/{{ playerData.deaths }}/{{
               playerData.assists
             }}
