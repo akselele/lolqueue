@@ -60,7 +60,7 @@
           </template>
         </div>
       </div>
-      <div class="flex flex-row gap-4">
+      <div class="md:flex flex-row gap-4 hidden">
         <div class="flex flex-col">
           <div
             v-for="participant in participantsTeam1"
