@@ -1,5 +1,5 @@
 <template>
-  <div class="w-screen h-screen flex flex-col bg-dark-base">
+  <div class="w-screen h-screen flex flex-col bg-dark-base overflow-x-hidden">
     <div class="flex flex-col md:flex=row m-auto">
       <button
         class="btn btn-primary rounded-xl mb-8 mt-4"

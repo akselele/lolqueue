@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-row">
-    <div class="flex p-5 bg-gray-900 rounded-xl" :style="{ width: '450px' }">
+    <div class="flex p-5 bg-gray-900 rounded-xl" :style="{ width: '450 px' }">
       <div>
         <img class="w-20 h-20" :src="getChampIcon()" alt="Champion Played" />
       </div>
