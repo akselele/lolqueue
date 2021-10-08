@@ -1,12 +1,13 @@
 <template>
   <div class="flex flex-row">
     <div class="flex p-5 bg-gray-900 rounded-xl w-full">
-      <div class="flex items-center">
+      <div class="flex flex-col items-center self-end">
         <img
-          class="w-20 h-20"
+          class="w-20 h-20 rounded-full"
           :src="getChampIcon(playerData.championName)"
           alt="Champion Played"
         />
+        <p>{{ getElapsedTime(match.info.gameCreation) }} days ago</p>
       </div>
       <div class="flex flex-col my-auto ml-2 mr-1">
         <div>
@@ -72,7 +73,7 @@
               <img
                 class="w-5 h-5 ml-1"
                 :src="getChampIcon(participant.championName)"
-                :alt=participant.championName
+                :alt="participant.championName"
               />
             </div>
           </div>
@@ -87,7 +88,7 @@
               <img
                 class="w-5 h-5 mr-1"
                 :src="getChampIcon(participant.championName)"
-                :alt=participant.championName
+                :alt="participant.championName"
               />
               {{ participant.summonerName }}
             </div>
@@ -163,6 +164,13 @@ export default {
     },
     getItemIcon(id) {
       return `https://ddragon.leagueoflegends.com/cdn/11.19.1/img/item/${id}.png`
+    },
+    getElapsedTime(epoch) {
+      const gameDate = new Date(epoch)
+      const today = new Date()
+      const differenceInTime = today.getTime() - gameDate.getTime()
+      const diffyInDays = Math.ceil(differenceInTime / (1000 * 3600 * 24))
+      return diffyInDays
     },
   },
 }
