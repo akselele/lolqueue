@@ -1,8 +1,12 @@
 <template>
   <div class="flex flex-row">
     <div class="flex p-5 bg-gray-900 rounded-xl w-full">
-      <div>
-        <img class="w-20 h-20" :src="getChampIcon()" alt="Champion Played" />
+      <div class="flex items-center">
+        <img
+          class="w-20 h-20"
+          :src="getChampIcon(playerData.championName)"
+          alt="Champion Played"
+        />
       </div>
       <div class="flex flex-col my-auto ml-5 mr-1">
         <div>
@@ -32,7 +36,7 @@
           </p>
         </div>
       </div>
-      <div class="flex flex-col my-auto ml-5 gap-2">
+      <div class="flex flex-col my-auto ml-5 mr-5 gap-2">
         <div class="flex flex-row gap-2">
           <template v-for="item in playerData.items.slice(0, 3)">
             <img
@@ -51,9 +55,43 @@
               class="w-10 h-10"
               :src="getItemIcon(item)"
               alt="Item"
-              :style="[item === 0 ? { display: 'none' } : {}]"
+              :style="[item === 0 ? { visibility: 'hidden' } : {}]"
             />
           </template>
+        </div>
+      </div>
+      <div class="flex flex-row gap-4">
+        <div class="flex flex-col">
+          <div
+            v-for="participant in participantsTeam1"
+            :key="participant.summonerName"
+            class="flex flex-row justify-end"
+          >
+            {{ participant.summonerName }}
+            <div class="flex items-center">
+              <img
+                class="w-5 h-5 ml-1"
+                :src="getChampIcon(participant.championName)"
+                :alt=participant.championName
+              />
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-col">
+          <div
+            v-for="participant in participantsTeam2"
+            :key="participant.summonerName"
+            class="flex flex-row justify-start"
+          >
+            <div class="flex items-center">
+              <img
+                class="w-5 h-5 mr-1"
+                :src="getChampIcon(participant.championName)"
+                :alt=participant.championName
+              />
+              {{ participant.summonerName }}
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -92,6 +130,12 @@ export default {
         11: 'SummonerSmite',
         12: 'SummonerTeleport',
       },
+      participantsTeam1: this.match.info.participants.filter(
+        (e) => e.teamId === 100
+      ),
+      participantsTeam2: this.match.info.participants.filter(
+        (e) => e.teamId === 200
+      ),
     }
   },
   created() {
@@ -111,8 +155,7 @@ export default {
     getSummonerSpell(id) {
       return `https://ddragon.leagueoflegends.com/cdn/11.19.1/img/spell/${this.summonerSpells[id]}.png`
     },
-    getChampIcon() {
-      const champ = this.playerData.championName
+    getChampIcon(champ) {
       return `https://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/${champ}.png`
     },
     isVictory() {
