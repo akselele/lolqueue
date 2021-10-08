@@ -1,5 +1,5 @@
 <template>
-    <Nuxt id="app"/>
+    <Nuxt id="app" class="overflow-x-hidden"/>
 </template>
 
 <style scoped>
