@@ -8,7 +8,7 @@
           alt="Champion Played"
         />
       </div>
-      <div class="flex flex-col my-auto ml-5 mr-1">
+      <div class="flex flex-col my-auto ml-2 mr-1">
         <div>
           <p
             class="font-bold text-dark-text"
@@ -36,7 +36,7 @@
           </p>
         </div>
       </div>
-      <div class="flex flex-col my-auto ml-5 mr-5 gap-2">
+      <div class="flex flex-col my-auto ml-2 mr-2 gap-2">
         <div class="flex flex-row gap-2">
           <template v-for="item in playerData.items.slice(0, 3)">
             <img
