@@ -2,12 +2,13 @@
   <div class="w-screen h-screen flex flex-col bg-dark-base">
     <div class="flex flex-col md:flex=row m-auto">
       <button
-        class="btn btn-primary rounded-xl mb-8  mt-4"
+        class="btn btn-primary rounded-xl mb-8 mt-4"
         :class="loading ? 'loading' : ''"
         @click="refreshMatches"
       >
         REFRESH MATCHES
       </button>
+      <p v-if="ign === 'H4ntu Raya'" class="self-center">wllh tu pues les couilles</p>
       <div class="flex flex-row gap-4">
         <div class="flex flex-col gap-4">
           <template v-for="game in matches">
