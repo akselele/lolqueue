@@ -25,6 +25,12 @@ export default {
     ]
   },
 
+  vue : {
+    config: {
+      devTools: true,
+    },
+  },
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
   ],
