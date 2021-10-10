@@ -63,6 +63,6 @@ export default {
   },
 
   publicRuntimeConfig: {
-    baseURL: process.env.ENV === 'development' ? 'http://localhost:5500' : 'api.akselele.com'
+    baseURL: process.env.ENV === 'development' ? 'http://localhost:5500' : 'api.akselele.com:8080'
   },
 }
