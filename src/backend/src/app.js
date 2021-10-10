@@ -8,7 +8,7 @@ const app = express();
 
 const container = configuration();
 app.use(scopePerRequest(container));
-app.use(cors({ origin: 'http://www.akselele.com', credentials: true }));
+app.use(cors({ origin: 'http://akselele.com', credentials: true }));
 app.use('/api/', routes);
 
 export default app;
