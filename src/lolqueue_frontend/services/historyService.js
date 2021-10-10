@@ -1,11 +1,11 @@
 export async function getMatchHistory(ctx, ign, cached) {
   try {
-    const URL = `http://localhost:5500/api`;
+    const URL = ctx.$config.baseURL;
     let response;
     if (cached) {
-      response = await ctx.$axios.$get(`${URL}/history/matches`, { params: { ign } });
+      response = await ctx.$axios.$get(`${URL}/api/history/matches`, { params: { ign } });
     } else {
-      response = await ctx.$axios.$get(`${URL}/history/refresh/matches`, { params: { ign } });
+      response = await ctx.$axios.$get(`${URL}/api/history/refresh/matches`, { params: { ign } });
     }
     return response;
   } catch (err) {
@@ -15,15 +15,15 @@ export async function getMatchHistory(ctx, ign, cached) {
 
 export async function getRank(ctx, igns, cached) {
   try {
-    const URL = `http://localhost:5500/api`;
+    const URL = ctx.$config.baseURL;
     const ranks = [];
     for (let i = 0; i < igns.length; i++) {
       const params = { params: { ign: igns[i] } };
       let rank;
       if (cached) {
-        rank = await ctx.$axios.$get(`${URL}/history/rank`, params);
+        rank = await ctx.$axios.$get(`${URL}/api/history/rank`, params);
       } else {
-        rank = await ctx.$axios.$get(`${URL}/history/refresh/rank`, params);
+        rank = await ctx.$axios.$get(`${URL}/api/history/refresh/rank`, params);
       }
       if (rank) {
         const r = {};
