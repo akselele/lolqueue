@@ -56,7 +56,9 @@ export default {
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
+  axios: {
+    baseURL: process.env.ENV === 'development' ? 'http://localhost:5500' : 'api.akselele.com:8080'
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
